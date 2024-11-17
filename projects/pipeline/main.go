@@ -1,7 +1,31 @@
 package main
 
-// реализовать removeDuplicates(in, out chan string)
+import "fmt"
+
+func removeDuplicates(inputStream, outputStream chan string) {
+	var tmp string = ""
+	for v := range inputStream {
+		if v != tmp {
+			outputStream <- v
+		}
+		tmp = v
+	}
+	close(outputStream)
+}
 
 func main() {
-	// здесь должен быть код для проверки правильности работы функции removeDuplicates(in, out chan string)
+	inputStream := make(chan string)
+	outputStream := make(chan string)
+	var s string = "OOOAOOOAOAOAOAOAOAAAAAAOAOAOA"
+	go removeDuplicates(inputStream, outputStream)
+	go func() {
+		for v := range outputStream {
+			fmt.Print(v)
+		}
+	}()
+
+	for _, a := range s {
+		inputStream <- string(a)
+	}
+
 }
