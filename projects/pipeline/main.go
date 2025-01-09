@@ -16,7 +16,7 @@ func removeDuplicates(inputStream, outputStream chan string) {
 func main() {
 	inputStream := make(chan string)
 	outputStream := make(chan string)
-	var s string = "OOOAOOOAOAOAOAOAOAAAAAAOAOAOA"
+	var s string = "фыфыфыфыфыфыфы"
 	go removeDuplicates(inputStream, outputStream)
 	go func() {
 		for v := range outputStream {
